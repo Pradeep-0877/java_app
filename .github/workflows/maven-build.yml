@@ -23,8 +23,8 @@ jobs:
           cache: maven
       - name: Build with Maven Wrapper
         run: mvn clean install
-      - uses: mr-smithers-excellent/docker-build-push@v6
       - name: Build & push Docker image
+      - uses: mr-smithers-excellent/docker-build-push@v6
         with:
           image: pradeep0877/github-action
           tags: latest
