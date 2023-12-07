@@ -23,3 +23,12 @@ jobs:
           cache: maven
       - name: Build with Maven Wrapper
         run: mvn clean install
+      - uses: mr-smithers-excellent/docker-build-push@v6
+      - name: Build & push Docker image
+        with:
+          image: pradeep0877/github-action
+          tags: latest
+          registry: docker.io
+          dockerfile: Dockerfile
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
