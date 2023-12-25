@@ -11,6 +11,8 @@ on:
 
 jobs:
   depoloy:
+    name: deploy
+    runs-on: ubuntu-latest
     # ...
 
     permissions:
