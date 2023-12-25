@@ -10,6 +10,26 @@ on:
     branches: [ main ]
 
 jobs:
+  depoloy:
+    # ...
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    - uses: 'actions/checkout@v4'
+
+    - uses: 'google-github-actions/auth@v2'
+      with:
+        workload_identity_provider: 'projects/734180375692/locations/global/workloadIdentityPools/github/providers/my-provider'
+        service_account: 'github-actions-sa@moonlit-parsec-403705.iam.gserviceaccount.com'
+
+    - id: 'deploy'
+      uses: 'google-github-actions/deploy-cloudrun@v2'
+      with:
+        service: 'hello-cloud-run'
+        image: 'pradeep0877/github-action'
   # build:
   #   name: Build
   #   runs-on: ubuntu-latest
@@ -38,25 +58,25 @@ jobs:
   #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   #         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
   #       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.qualitygate.wait=true
-  deploy:
+  # deploy:
       # needs: build
-      name: deploy to github
-      runs-on: ubuntu-latest
-      steps:
-         - uses: actions/checkout@v2
-         - name: Set up JDK 1.8
-           uses: actions/setup-java@v1
-           with:
-             java-version: '17'
-             distribution: 'adopt'
-             cache: maven
-         - name: Build with Maven
-           run: mvn package
-         - name: Step 3 - Use the Upload Artifact GitHub Action
-           uses: actions/upload-artifact@v2
-           with: 
-             name: petclininc_artifact
-             path: target/*.jar
+      # name: deploy to github
+      # runs-on: ubuntu-latest
+      # steps:
+      #    - uses: actions/checkout@v2
+      #    - name: Set up JDK 1.8
+      #      uses: actions/setup-java@v1
+      #      with:
+      #        java-version: '17'
+      #        distribution: 'adopt'
+      #        cache: maven
+      #    - name: Build with Maven
+      #      run: mvn package
+      #    - name: Step 3 - Use the Upload Artifact GitHub Action
+      #      uses: actions/upload-artifact@v2
+      #      with: 
+      #        name: petclininc_artifact
+      #        path: target/*.jar
 
          # - name: Build & push Docker image
          #   uses: mr-smithers-excellent/docker-build-push@v5
@@ -67,6 +87,9 @@ jobs:
          #     dockerfile: Dockerfile
          #     username: ${{ secrets.DOCKER_USERNAME }}
          #     password: ${{ secrets.DOCKER_PASSWORD }}
-      
+  
+  
+       
+  
     
       
