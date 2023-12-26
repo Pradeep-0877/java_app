@@ -7,7 +7,7 @@ on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [ main ]
+    branches: [ main1 ]
 
 jobs:
   depoloy:
@@ -22,16 +22,12 @@ jobs:
     steps:
     - uses: 'actions/checkout@v4'
 
-    - uses: 'google-github-actions/auth@v2'
+    - name: Setup Cloud cli
+      uses: google-github-actions/setup-gcloud@v0.2.0
       with:
-        workload_identity_provider: 'projects/734180375692/locations/global/workloadIdentityPools/github/providers/github'
-        service_account: 'github-actions-sa@moonlit-parsec-403705.iam.gserviceaccount.com'
-
-    - id: 'deploy'
-      uses: 'google-github-actions/deploy-cloudrun@v2'
-      with:
-        service: 'hello-cloud-run'
-        image: 'gcr.io/cloudrun/hello'
+        project_id: ${{ env.PROJECT_ID }}
+        service_account_key: ${{ secrets.GCP_SA_KEY }}
+        export_default_credentials: true
           
   # build:
   #   name: Build
