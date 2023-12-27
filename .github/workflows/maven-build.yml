@@ -9,27 +9,7 @@ on:
   pull_request:
     branches: [ main ]
 
-jobs:
-  # depoloy:
-  #   name: deploy
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: 'actions/checkout@v4'
-
-    # - name: Setup Cloud cli
-    #   uses: google-github-actions/setup-gcloud@v0.2.0
-    #   with:
-    #     project_id: moonlit-parsec-403705
-    #     service_account_key: ${{ secrets.GCP_SA_KEY }}
-    #     export_default_credentials: true
-    # - name: Deploy to Cloud Run
-    #   id: deploy
-    #   uses: google-github-actions/deploy-cloudrun@v0.4.0
-    #   with:
-    #     service: java-app
-    #     image: pradeep0877/github-action
-    #     region: us-east1
-          
+jobs:        
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -56,7 +36,7 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: http://34.125.172.39:9000/
+          SONAR_HOST_URL: http://34.16.128.156:9000/
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.qualitygate.wait=true
   deploy:
       needs: build
