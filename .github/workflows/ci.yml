@@ -40,4 +40,11 @@ jobs:
          with: 
            name: ${{github.event.inputs.ARTIFACT_NAME}}
            path: target/*.jar
-           
+    Build_and_push_images: 
+          runs-on: ubuntu-latest
+          steps: 
+            - name: Downloading the Artifacts
+              uses: actions/download-artifacts@v3
+              with: 
+                 name: ${{ github.event.inputs.ARTIFACT_NAME }}
+            - run: ls
