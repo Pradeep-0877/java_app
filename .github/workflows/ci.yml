@@ -41,6 +41,7 @@ jobs:
            name: ${{github.event.inputs.ARTIFACT_NAME}}
            path: target/*.jar
     Build_and_push_images: 
+          needs: build
           runs-on: ubuntu-latest
           steps: 
             - name: Downloading the Artifacts
