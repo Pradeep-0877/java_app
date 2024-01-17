@@ -38,6 +38,6 @@ jobs:
        - name: archiving the artifacts.....
          uses: actions/upload-artifact@v3
          with: 
-           name: ${{github.event.input.ARTIFACT_NAME}}
+           name: ${{github.event.inputs.ARTIFACT_NAME}}
            path: target/*.jar
            
