@@ -5,6 +5,9 @@ on:
       ARTIFACT_NAME: 
         default: petclinic v1.0
         required: true
+      DEPLOY_TO: 
+         default: production
+         type: environment
         
 jobs: 
     build:
