@@ -1,5 +1,8 @@
 name: CD
-on: workflow_dispatch
+on: 
+  workflow_run: 
+     workflows: build
+     types: [completed]
 jobs: 
   Deploy: 
      runs-on: ubuntu-latest
