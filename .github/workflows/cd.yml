@@ -4,19 +4,45 @@ on:
      workflows: ci build
      types: [completed]
 jobs: 
-  Deploy: 
-     runs-on: ubuntu-latest
-     steps:
-     - run: echo "${{toJSON(github.event.workflow_run)}}"
-     - run: echo "${{ github.event.workflow_run.event.inputs.ARTIFACT_NAME }}"
-     - name: Download build artifact from triggered workflow
-       uses: dawidd6/action-download-artifact@v2
-       with:
-          run_id: ${{ github.event.workflow_run.id }}
-          # name: ${{ github.event.workflow_run.event.inputs.ARTIFACT_NAME }}
-          path: ./artifacts
-          search_artifacts: true
-     - run: |
-           cd artifacts/*/
-           ls
+   Build_and_push_images: 
+          environment: production
+          runs-on: ubuntu-latest
+          steps: 
+            - name: checkout code
+              uses: actions/checkout@v3
+            - name: Download build artifact from triggered workflow
+              uses: dawidd6/action-download-artifact@v2
+              with:
+                run_id: ${{ github.event.workflow_run.id }}
+               # name: ${{ github.event.workflow_run.event.inputs.ARTIFACT_NAME }}
+                path: ./artifacts
+                search_artifacts: true
+            - run: ls
+            - name: Build & push Docker image
+              uses: mr-smithers-excellent/docker-build-push@v5
+              with:
+                image: pradeep0877/github-action
+                tags: latest
+                registry: docker.io
+                dockerfile: Dockerfile
+                username: ${{ secrets.DOCKER_USERNAME }}
+                password: ${{ secrets.DOCKER_PASSWORD }}
+   # Deploy: 
+   #   runs-on: ubuntu-latest
+   #   steps:
+   #   - name: checkout code
+   #     uses: actions/checkout@v3
+   #   # - run: echo "${{toJSON(github.event.workflow_run)}}"
+   #   # - run: echo "${{ github.event.workflow_run.event.inputs.ARTIFACT_NAME }}"
+   #   - name: Download build artifact from triggered workflow
+   #     uses: dawidd6/action-download-artifact@v2
+   #     with:
+   #        run_id: ${{ github.event.workflow_run.id }}
+   #        # name: ${{ github.event.workflow_run.event.inputs.ARTIFACT_NAME }}
+   #        path: ./artifacts
+   #        search_artifacts: true
+      
+   #   - run: |
+   #         cd artifacts/*/
+   #         ls
            pwd
