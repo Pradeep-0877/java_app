@@ -4,10 +4,13 @@ jobs:
   Deploy: 
      runs-on: ubuntu-latest
      steps: 
-       - name: download artifacts
-         uses: actions/download-artifact@v3
-         with: 
-           name: petclinic v1.0
-       - run: | 
+     - name: Download build artifact from triggered workflow
+       uses: dawidd6/action-download-artifact@v2
+       with:
+          run_id: ${{ github.event.workflow_run.id }}
+          name: petclinic v1.0
+          path: ./artifacts
+          search_artifacts: true
+     - run: | 
            ls
            pwd
