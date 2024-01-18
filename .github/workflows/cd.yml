@@ -8,6 +8,7 @@ jobs:
      runs-on: ubuntu-latest
      steps:
      - run: echo "${{toJSON(github.event.workflow_run)}}"
+     - run: echo "${{ github.event.workflow_run.event.inputs.ARTIFACT_NAME }}"
      - name: Download build artifact from triggered workflow
        uses: dawidd6/action-download-artifact@v2
        with:
