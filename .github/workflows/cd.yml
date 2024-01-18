@@ -22,27 +22,28 @@ jobs:
               uses: mr-smithers-excellent/docker-build-push@v5
               with:
                 image: pradeep0877/github-action
-                tags: latest
+                tags: ${{github.run_number}}
                 registry: docker.io
                 dockerfile: Dockerfile
                 username: ${{ secrets.DOCKER_USERNAME }}
                 password: ${{ secrets.DOCKER_PASSWORD }}
-   # Deploy: 
-   #   runs-on: ubuntu-latest
-   #   steps:
-   #   - name: checkout code
-   #     uses: actions/checkout@v3
-   #   # - run: echo "${{toJSON(github.event.workflow_run)}}"
-   #   # - run: echo "${{ github.event.workflow_run.event.inputs.ARTIFACT_NAME }}"
-   #   - name: Download build artifact from triggered workflow
-   #     uses: dawidd6/action-download-artifact@v2
-   #     with:
-   #        run_id: ${{ github.event.workflow_run.id }}
-   #        # name: ${{ github.event.workflow_run.event.inputs.ARTIFACT_NAME }}
-   #        path: ./artifacts
-   #        search_artifacts: true
-      
-   #   - run: |
-   #         cd artifacts/*/
-   #         ls
-           # pwd
+  Deploy_to_Cloud_Rum: 
+       runs-on: ubuntu-latest
+       steps: 
+          - name: Setup Cloud cli
+            uses: google-github-actions/setup-gcloud@v0.2.0
+            with:
+             project_id: my-k8s-project-404207
+             service_account_key: ${{ secrets.GCP_SA_KEY }}
+             export_default_credentials: true
+          -  name: Deploy to Cloud Run
+             id: deploy
+             uses: google-github-actions/deploy-cloudrun@v0.4.0
+             with:
+               service: java-app
+               image: "pradeep0877/github-action:${{github.run_number}}"
+               region: us-east1
+          - name: Show Output
+            run: echo ${{ steps.deploy.outputs.url }}
+        
+         
