@@ -40,23 +40,4 @@ jobs:
          with: 
            name: ${{github.event.inputs.ARTIFACT_NAME}}
            path: target/*.jar
-    Build_and_push_images: 
-          needs: build
-          runs-on: ubuntu-latest
-          steps: 
-            - name: checkout code
-              uses: actions/checkout@v3
-            - name: Downloading the Artifacts
-              uses: actions/download-artifact@v3
-              with: 
-                 name: ${{ github.event.inputs.ARTIFACT_NAME }}
-            - run: ls
-            - name: Build & push Docker image
-              uses: mr-smithers-excellent/docker-build-push@v5
-              with:
-                image: pradeep0877/github-action
-                tags: latest
-                registry: docker.io
-                dockerfile: Dockerfile
-                username: ${{ secrets.DOCKER_USERNAME }}
-                password: ${{ secrets.DOCKER_PASSWORD }}
+   
