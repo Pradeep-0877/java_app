@@ -1,0 +1,13 @@
+name: CD
+on: workflow_dispatch
+jobs: 
+  Deploy: 
+     runs-on: ubuntu-latest
+     steps: 
+       - name: download artifacts
+         uses: actions/download-artifact@v3
+         with: 
+           name: petclinic v1.0
+       - run: | 
+           ls
+           pwd
