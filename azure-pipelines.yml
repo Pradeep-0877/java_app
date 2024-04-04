@@ -9,7 +9,8 @@ trigger:
 stages:
   - stage: Build
     jobs:
-      - job: Build the mvn application
+      - job: Build
+        displayName: Building the maven application
         pool: default
         steps: 
           - script: mvn package
