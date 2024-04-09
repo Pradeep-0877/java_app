@@ -18,13 +18,13 @@ spec:
             ports:
              -  containerPort: 8080
             imagePullPolicy: Always
-            resources:
-              requests:
-                cpu: '100m'
-                memory: '120Mi'
-              limits:
-                cpu: '200m'
-                memory: '300Mi'
+            # resources:
+            #   requests:
+            #     cpu: '100m'
+            #     memory: '120Mi'
+            #   limits:
+            #     cpu: '200m'
+            #     memory: '300Mi'
 ---
 
 apiVersion: v1
