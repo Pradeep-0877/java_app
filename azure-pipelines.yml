@@ -17,7 +17,7 @@ stages:
              displayName: Copying to the artifacts folder
            - task: CopyFiles@2
              inputs:
-               Contents: '/kube-manifests'
+               Contents: 'kube-manifests/deploy-service.yaml'
                TargetFolder: '$(build.artifactstagingdirectory)'
              displayName: Copying the kube-manifests files
            
