@@ -15,6 +15,11 @@ stages:
                Contents: '**/*.jar'
                TargetFolder: '$(build.artifactstagingdirectory)'
              displayName: Copying to the artifacts folder
+           - task: CopyFiles@2
+             inputs:
+               Contents: 'kube-manifests'
+               TargetFolder: '$(build.artifactstagingdirectory)'
+           
            - task: PublishBuildArtifacts@1
              inputs:
                PathtoPublish: '$(Build.ArtifactStagingDirectory)'
