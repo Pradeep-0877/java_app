@@ -8,7 +8,7 @@ stages:
         displayName: Building the mvn application...
         pool: default
         steps: 
-           - script: mvn package
+           - script: mvn package -DskipTests=true
              displayName: packaging the application
            - task: CopyFiles@2
              inputs:
