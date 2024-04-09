@@ -13,7 +13,7 @@ spec:
           app: pet-app
       spec:
         containers:
-          - image: docker pull acr0877.azurecr.io/petclininc
+          - image: acr0877.azurecr.io/petclininc
             name: pet-c
             ports:
              -  containerPort: 8080
