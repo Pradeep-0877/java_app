@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+   name: webapp
+spec:
+    replicas: 1
+    selector:
+      matchLabels:
+         app: pet-app
+    template:
+      metadata:
+        labels:
+          app: pet-app
+      spec:
+        containers:
+          - image: docker pull acr0877.azurecr.io/petclininc
+            name: pet-c
+            ports:
+             -  containerPort: 8080
+            imagePullPolicy: Always
+            resources:
+              requests:
+                cpu: '100m'
+                memory: '120Mi'
+              limits:
+                cpu: '200m'
+                memory: '300Mi'
+---
+
+apiVersion; v1
+kind: Service
+metadata: 
+  name: pet-svc
+spec: 
+  selector:
+    app: pet-app
+  ports: 
+    - port: 80
+      targetPort: 8080
+  type: LoadBalancer
