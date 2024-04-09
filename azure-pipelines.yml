@@ -1,33 +1,29 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-trigger:
-- main
-
+trigger: 
+  - main
 stages:
   - stage: Build
-    jobs:
-      - job: Build
-        displayName: Building the maven application
-        pool: 
-           vmImage: ubuntu-latest
+    displayName: Build java app...
+    jobs: 
+      - job: Buid
+        displayName: Building the mvn application...
+        pool: default
         steps: 
-          - script: mvn package
-            displayName: "Building the application"
-          - task: Docker@2
-            inputs:
-              containerRegistry: 'acr0877'
-              repository: 'petclinic'
-              command: 'buildAndPush'
-              Dockerfile: 'Dockerfile'
-          - task: CopyFiles@2
-            inputs:
-              Contents: '**/*.jar'
-              TargetFolder: '$(build.artifactstagingdirectory)'
-          - task: PublishBuildArtifacts@1
-            inputs:
-              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-              ArtifactName: 'petclinic-artifacts'
-              publishLocation: 'Container'
+           - script: mvn package
+             displayName: packaging the application
+           - task: CopyFiles@2
+             inputs:
+               Contents: '**/*.jar'
+               TargetFolder: '$(build.artifactstagingdirectory)'
+             displayName: Copying to the artifacts folder
+           - task: PublishBuildArtifacts@1
+             inputs:
+               PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+               ArtifactName: 'petclininc app'
+               publishLocation: 'Container'
+             displayName: Publishing the artifacts
+           - task: Docker@2
+             inputs:
+               containerRegistry: 'acr0877'
+               repository: 'petclininc'
+               command: 'buildAndPush'
+               Dockerfile: 'Dockerfile'
