@@ -7,3 +7,5 @@ jobs:
      steps: 
        - name: checkout latest code
          uses: actions/checkout@v5.0.0
+       - name: using run command
+         run: echo hello world
