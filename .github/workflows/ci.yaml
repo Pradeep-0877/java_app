@@ -4,10 +4,12 @@ on:
  #   - cron: '*/15 * */22 * *'
  workflow_dispatch: 
    inputs: 
-     loglevel: 
+     logLevel: 
        description: 'log level'
        required: true
        default: 'Enter the log level here'
+     tag: 
+       description: 'Test scenaria tags'
 jobs: 
   Build: 
      name: Building petclinic java application
