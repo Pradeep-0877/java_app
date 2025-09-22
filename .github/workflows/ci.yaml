@@ -1,0 +1,9 @@
+name: building java code
+on: workflow_dispatch
+joba: 
+  Build: 
+     name: Building petclinic java application
+     runs-on: 'ubuntu-latest'
+     steps: 
+       - name: checkout latest code
+         uses: actions/checkout@v5.0.0
