@@ -1,5 +1,7 @@
 name: building java code
-on: workflow_dispatch
+on: 
+ schedule: 
+   - cron: '*/15 * */22 * *'
 jobs: 
   Build: 
      name: Building petclinic java application
