@@ -1,6 +1,6 @@
 name: building java code
 on: workflow_dispatch
-joba: 
+jobs: 
   Build: 
      name: Building petclinic java application
      runs-on: 'ubuntu-latest'
