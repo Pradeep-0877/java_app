@@ -10,11 +10,13 @@ on:
        default: 'Enter the log level here'
   
 jobs: 
+  
   Build: 
+     if: github.event.inputs.log_level == 3
      name: Building petclinic java application
      runs-on: 'ubuntu-latest'
      steps: 
        - name: checkout latest code
          uses: actions/checkout@v5.0.0
        - name: using run command
-         run: echo ${{github.event.inputs.log_level}}
+         run: echo my level is ${{github.event.inputs.log_level}}
